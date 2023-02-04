@@ -1,5 +1,5 @@
 #This script generates a QR code from a URL. Run the script and enter the URL into the GUI
-
+import os
 import sys
 import tkinter as tk
 import tkinter.messagebox as messagebox
@@ -21,15 +21,17 @@ def generate_qr_code(url):
     # Generate the QR code image
     img = qr.make_image(fill_color="black", back_color="white")
 
-    # Save the QR code image
-    with open("qr_code.png", "wb") as f:
+    # Save the QR code image to the downloads folder
+    downloads_folder = os.path.expanduser("~/Downloads")
+    file_path = os.path.join(downloads_folder, "qr_code.png")
+    with open(file_path, "wb") as f:
         img.save(f)
     return True
 
 def on_generate_button_click():
     url = entry.get()
     if generate_qr_code(url):
-        messagebox.showinfo("Success", "QR code generated successfully!")
+        messagebox.showinfo("Success", "QR code generated successfully! Check downloads folder.")
         sys.exit()
 
 if __name__ == '__main__':
